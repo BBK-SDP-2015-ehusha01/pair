@@ -30,7 +30,7 @@ class Board {
 
   def this(b: Board, nextMove: Move) {
     this(b)
-    makeMove(nextMove)
+    //makeMove(nextMove)
   }
 
   def getTile(row: Int, col: Int): Player = board(row)(col)
