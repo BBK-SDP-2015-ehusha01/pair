@@ -30,12 +30,21 @@ class Board {
 
   def this(b: Board, nextMove: Move) {
     this(b)
-    //makeMove(nextMove)
+    makeMove(nextMove)
   }
 
   def getTile(row: Int, col: Int): Player = board(row)(col)
 
-  def makeMove(move: Move): Unit = ???
+  def makeMove(move: Move): Unit = {
+    var v = Board.NUM_ROWS
+    for (r <- 0 until Board.NUM_ROWS) {
+      v = v - 1
+      if(board(v)(move.column) == null){
+        board(v)(move.column) = move.player
+        return
+      }
+    }
+  }
 
   def getPossibleMoves(p: Player): Array[Move] = ???
 
