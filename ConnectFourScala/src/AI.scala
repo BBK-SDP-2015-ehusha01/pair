@@ -6,6 +6,9 @@ import scala.collection.JavaConversions._
 object AI {
 
   def createGameTree(s: State, d: Int) {
+    s.initializeChildren()
+    if (d <= 1) return
+    s.children.foreach { c => createGameTree(c, d - 1) }
   }
 
   def minimax(ai: AI, s: State) {
