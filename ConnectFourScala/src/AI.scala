@@ -19,7 +19,16 @@ object AI {
 class AI(private var player: Player, private var depth: Int) extends Solver {
 
   override def getMoves(b: Board): Array[Move] = {
-    b.getPossibleMoves(player)
+    val firstState = new State(player, b, null)
+    
+    AI.createGameTree(firstState, depth)
+    minimax(firstState)
+    
+//    another verison    
+//    firstState.children.sortBy { x => x.value }.map{c => c.getLastMove()}.reverse
+    
+    firstState.children.sortWith((x, y) => x.value > y.value).map{c => c.getLastMove()}
+
   }
 
   def minimax(s: State) {
