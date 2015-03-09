@@ -23,6 +23,14 @@ class AI(private var player: Player, private var depth: Int) extends Solver {
   }
 
   def minimax(s: State) {
+      if (s.children.isEmpty) {
+        s.value = evaluateBoard(s.board)
+        return
+      }
+      
+      s.children.foreach(minimax)
+      
+      s.value = if (s.player == player) s.children.maxBy(st => st.value).value else s.children.minBy(st => st.value).value
   }
 
   def evaluateBoard(b: Board): Int = {
