@@ -36,10 +36,8 @@ class Board {
   def getTile(row: Int, col: Int): Player = board(row)(col)
 
   def makeMove(move: Move): Unit = {
-    var v = Board.NUM_ROWS
-    for (r <- 0 until Board.NUM_ROWS) {
-      v = v - 1
-      if(board(v)(move.column) == null){
+    (Board.NUM_ROWS - 1 to 0 by -1).foreach { v =>
+      if (board(v)(move.column) == null) {
         board(v)(move.column) = move.player
         return
       }
@@ -48,7 +46,7 @@ class Board {
 
   def getPossibleMoves(p: Player): Array[Move] = {
     val colsArray = (0 until Board.NUM_COLS).toList
-    val allMoves = colsArray.map { i => getTile(0, i)}
+    val allMoves = colsArray.map { i => getTile(0, i) }
     colsArray.filter(x => allMoves(x) == null).map(i => new Move(p, i)).toArray
   }
 
