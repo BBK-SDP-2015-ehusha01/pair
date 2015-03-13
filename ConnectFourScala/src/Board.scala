@@ -36,6 +36,9 @@ class Board {
   def getTile(row: Int, col: Int): Player = board(row)(col)
 
   def makeMove(move: Move): Unit = {
+    // Loop through each row in column, and check if we have 
+    // space for a new cell (denoted by null)
+    
     (Board.NUM_ROWS - 1 to 0 by -1).foreach { v =>
       if (board(v)(move.column) == null) {
         board(v)(move.column) = move.player
@@ -45,6 +48,7 @@ class Board {
   }
 
   def getPossibleMoves(p: Player): Array[Move] = {
+    // Only get values where null
     val colsArray = (0 until Board.NUM_COLS).toList
     val allMoves = colsArray.map { i => getTile(0, i)}
     colsArray.filter(x => allMoves(x) == null).map(i => new Move(p, i)).toArray

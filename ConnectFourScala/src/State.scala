@@ -19,6 +19,7 @@ class State(@BeanProperty var player: Player, @BeanProperty var board: Board, @B
   var value: Int = 0
 
   def initializeChildren() {
+     // Recursively call initializeChildren for depth
      children = board.getPossibleMoves(player).map(m => {
        new State(player.opponent, new Board(board, m), m)
      })
@@ -28,7 +29,7 @@ class State(@BeanProperty var player: Player, @BeanProperty var board: Board, @B
     try {
       var writer = new PrintWriter("output.txt", "UTF-8")
       writer.println(this)
-      writer.close()
+      writer.close() // Added to fix bug
       java.awt.Toolkit.getDefaultToolkit.beep()
     } catch {
       case e @ (_: FileNotFoundException | _: UnsupportedEncodingException) => e.printStackTrace()

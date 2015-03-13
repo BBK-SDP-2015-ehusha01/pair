@@ -33,12 +33,14 @@ class AI(private var player: Player, private var depth: Int) extends Solver {
   }
 
   def minimax(s: State) {
+      // No point if depth is 0
       if (s.children.isEmpty) {
         s.value = evaluateBoard(s.board)
         return
       }
       
       s.children.foreach(minimax)
+      // Calculate value of move based on child values
       s.value = if (s.player == player) s.children.maxBy(st => st.value).value else s.children.minBy(st => st.value).value
   }
 
