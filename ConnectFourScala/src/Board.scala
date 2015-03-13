@@ -46,7 +46,7 @@ class Board {
 
   def getPossibleMoves(p: Player): Array[Move] = {
     val colsArray = (0 until Board.NUM_COLS).toList
-    val allMoves = colsArray.map { i => getTile(0, i) }
+    val allMoves = colsArray.map { i => getTile(0, i)}
     colsArray.filter(x => allMoves(x) == null).map(i => new Move(p, i)).toArray
   }
 

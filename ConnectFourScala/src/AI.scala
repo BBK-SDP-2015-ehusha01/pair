@@ -7,6 +7,7 @@ object AI {
 
   def createGameTree(s: State, d: Int) {
     s.initializeChildren()
+    s.writeToFile()
     if (d <= 1) return
     s.children.foreach { c => createGameTree(c, d - 1) }
   }
@@ -24,11 +25,11 @@ class AI(private var player: Player, private var depth: Int) extends Solver {
     AI.createGameTree(firstState, depth)
     minimax(firstState)
     
-//    another verison    
+//    First Version
 //    firstState.children.sortBy { x => x.value }.map{c => c.getLastMove()}.reverse
     
-    firstState.children.sortWith((x, y) => x.value > y.value).map{c => c.getLastMove()}
-
+    // Improved Version
+    firstState.children.sortWith((x, y) => x.value > y.value).map(c => c.getLastMove())
   }
 
   def minimax(s: State) {
@@ -38,7 +39,6 @@ class AI(private var player: Player, private var depth: Int) extends Solver {
       }
       
       s.children.foreach(minimax)
-      
       s.value = if (s.player == player) s.children.maxBy(st => st.value).value else s.children.minBy(st => st.value).value
   }
 
